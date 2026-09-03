@@ -218,17 +218,6 @@
           { type:'fill', q:'Her mother has _____ hair', ans:'short', hint:'形容词' },
           { type:'fill', q:'There are _____ rooms in the house', ans:'four', hint:'数字' }
         ]
-      },
-      // 新增：对标 YLE Starters Part 4（话题 toys/colours/numbers，一般现在时，单词作答）
-      {
-        title: 'My Toys',
-        text: 'Look at my toy box. I have three cars and two balls. The big ball is red and the small ball is yellow. My robot is grey. It can walk and sing. I play with my toys in my bedroom every day.',
-        items: [
-          { type:'choice', q:'How many cars does the writer have?', options:['Two','Three','Four','Five'], ans:1 },
-          { type:'choice', q:'What colour is the big ball?', options:['Red','Yellow','Grey','Blue'], ans:0 },
-          { type:'fill', q:'The robot is _____', ans:'grey', hint:'颜色' },
-          { type:'fill', q:'The robot can walk and _____', ans:'sing', hint:'动词' }
-        ]
       }
     ],
     // PU1 (Pre-A1→A1 Starters) - 60-80 词 · 一般现在时 · 日程与喜好
@@ -252,17 +241,6 @@
           { type:'fill', q:'Pizza has cheese and _____' , ans:'tomato', hint:'蔬菜/水果' },
           { type:'fill', q:'Apples are her favourite _____', ans:'fruit', hint:'可数名词' }
         ]
-      },
-      // 新增：对标 YLE Starters 2018 真题 Part 4 "A school"（学校话题，teacher/board/playground 同源词汇）
-      {
-        title: 'Our Classroom',
-        text: 'This is our classroom. It has two big windows and a green door. There are ten desks and a white board. Miss King is our teacher. She is kind and funny. On the board, she writes words and numbers. My favourite lesson is art because we paint pictures of animals. After school, I play football in the playground with my friends.',
-        items: [
-          { type:'choice', q:'What colour is the door?', options:['Red','Green','Blue','Yellow'], ans:1 },
-          { type:'choice', q:'What is the writer\'s favourite lesson?', options:['Math','English','Art','Music'], ans:2 },
-          { type:'fill', q:'Miss King writes words and _____ on the board', ans:'numbers', hint:'名词' },
-          { type:'fill', q:'After school, they play football in the _____', ans:'playground', hint:'场所' }
-        ]
       }
     ],
     // PU2 (A1 Movers) - 90-120 词 · 过去时 · 事件叙述
@@ -285,18 +263,6 @@
           { type:'choice', q:'How did they go home?', options:['By bus','By car','By taxi','On foot'], ans:2 },
           { type:'fill', q:'There were _____ big lions', ans:'three', hint:'数字' },
           { type:'fill', q:'Penguins could _____', ans:'swim', hint:'动词' }
-        ]
-      },
-      // 新增：对标 YLE Movers 2018 真题 Part 4 "Rabbits"（动物说明文 + 功能词，but/cannot/keep warm 同源表达）
-      {
-        title: 'Penguins',
-        text: 'Penguins are funny birds, but they cannot fly! They live in cold places near the sea. Penguins have black backs and white fronts. This helps them hide in the water. They are very good swimmers, and they eat small fish. When it is very cold, penguins stand together in big groups to keep warm. Baby penguins have soft grey bodies and stay close to their parents. In zoos around the world, children love watching these birds swim and play.',
-        items: [
-          { type:'choice', q:'What do penguins eat?', options:['Grass','Small fish','Meat','Fruit'], ans:1 },
-          { type:'choice', q:'Why do penguins stand in big groups?', options:['To hide','To keep warm','To swim','To sleep'], ans:1 },
-          { type:'fill', q:'Penguins are funny birds, but they cannot _____', ans:'fly', hint:'动词' },
-          { type:'fill', q:'Penguins have black _____ and white fronts', ans:'backs', hint:'身体部位' },
-          { type:'fill', q:'Baby penguins have soft _____ bodies', ans:'grey', hint:'颜色' }
         ]
       }
     ],
@@ -323,18 +289,6 @@
           { type:'fill', q:'They went on a _____ trip', ans:'boat', hint:'交通工具' },
           { type:'fill', q:'It was the best holiday I have _____ had', ans:'ever', hint:'副词' }
         ]
-      },
-      // 新增：对标 YLE Movers Part 4 高阶（学校出行话题，过去时叙事 + 直接引语）
-      {
-        title: 'A Trip to the Museum',
-        text: 'Last Friday, Class 4 went to the science museum. First, they watched a short film about space. Then a guide showed them an old rocket and a real astronaut\'s spacesuit. "Can we touch it?" Tom asked. "No, but you can try on the space helmet!" the guide answered. Tom\'s friend Emma found the dinosaur room the most exciting. After lunch in the museum café, everyone drew a picture of their favourite thing. On the bus home, the children were tired but happy. "It was the best school trip ever!" said Emma.',
-        items: [
-          { type:'choice', q:'Where did Class 4 go last Friday?', options:['To the zoo','To a farm','To a science museum','To the beach'], ans:2 },
-          { type:'choice', q:'What did Emma like most?', options:['The rocket','The spacesuit','The dinosaur room','The film'], ans:2 },
-          { type:'fill', q:'A guide showed them an old _____ and a spacesuit', ans:'rocket', hint:'名词' },
-          { type:'fill', q:'On the bus home, the children were tired but _____', ans:'happy', hint:'形容词' },
-          { type:'fill', q:'"It was the best school trip _____!" said Emma', ans:'ever', hint:'副词' }
-        ]
       }
     ],
     // PU4 (A2 Flyers) - 180-220 词 · 多句复合 · 推理
@@ -359,19 +313,6 @@
           { type:'fill', q:'She spent two weeks collecting _____', ans:'information', hint:'不可数名词' },
           { type:'fill', q:'I created a colourful _____ with pictures', ans:'poster', hint:'名词' },
           { type:'fill', q:'My parents put my poster on the _____', ans:'wall', hint:'名词' }
-        ]
-      },
-      // 新增：对标 YLE Flyers Part 3/4 故事语篇（过去叙事 + 对话 + 推理题，参照 2018 真题 cave story 风格）
-      {
-        title: 'The Lost Camera',
-        text: 'When Anna got home from her holiday, she couldn\'t find her camera. She remembered taking photos on the beach, so she looked in her blue suitcase first, but it wasn\'t there. Then she checked her backpack and all her pockets - nothing. Anna felt sad because the photos of her trip were very important to her. Her younger brother Peter came into her room. "Why are you looking under the bed?" he asked. "I\'ve lost my camera," Anna replied. Peter smiled and opened his desk drawer. "Is this it? I found it in the taxi on the way home. I was going to give it to you after dinner." The camera had all the holiday photos, and Anna took a funny photo of Peter to say thank you.',
-        items: [
-          { type:'choice', q:'Where did Anna look FIRST?', options:['In her backpack','In her blue suitcase','Under the bed','In Peter\'s drawer'], ans:1 },
-          { type:'choice', q:'Why did Anna feel sad?', options:['Her camera was broken','The photos were important','Peter took the camera','She lost her suitcase'], ans:1 },
-          { type:'choice', q:'Where did Peter find the camera?', options:['In the taxi','At the beach','In the hotel','In the garden'], ans:0 },
-          { type:'fill', q:'Anna first looked in her blue _____', ans:'suitcase', hint:'名词' },
-          { type:'fill', q:'Peter found the camera in the _____', ans:'taxi', hint:'交通工具' },
-          { type:'fill', q:'Anna took a funny photo of Peter to say _____', ans:'thank you', hint:'礼貌用语' }
         ]
       }
     ]
@@ -956,7 +897,7 @@
     var langAcc = P.lang.total ? Math.round(P.lang.correct / P.lang.total * 100) : 0;
     var readAcc = (P.read && P.read.total) ? Math.round(P.read.correct / P.read.total * 100) : 0;
     var listenAcc = P.listenAccuracy;
-    // 综合权重：词汇 30% + 阅读 35% + 听力 35%（阅读/听力为理解核心，与官方 EOL 四项技能配比一致）；下方另按技能级别加权推导推荐起始级别
+    // 综合权重：语言应用占 30%、阅读 35%（自适应的难度本身含信息量）、听力 35%（综合真实语感）
     var overall = Math.round(langAcc * 0.30 + readAcc * 0.35 + listenAcc * 0.35);
     var grade = overall >= 90 ? { letter:'A', cn:'优秀', emoji:'🏆' }
               : overall >= 80 ? { letter:'B', cn:'良好', emoji:'🥇' }
@@ -975,22 +916,12 @@
       if (elapsed <= 300) window.gamify.unlockBadgeById('rapid_placement');
     }
 
-    // ===== 官方 CEFR 分级定级：词汇 / 阅读 / 听力 → 0-4 级别 → Power Up 册 =====
-    var CEFR_LV = ['Pre-A1 (Starters)', 'Pre-A1→A1', 'A1 (Movers)', 'A1+ (Movers)', 'A2 (Flyers)'];
-    // 三项技能各自级别（0-4）
-    var vLevel = P.langLevel;                                                              // 词汇/语言应用：自适应直接定级
-    var rLevel = (P.read && P.read.level != null) ? P.read.level : (P.read ? P.read.peakLevel : 0); // 阅读：最终稳定级别（非峰值）
-    function listenLevelFromAcc(a) { return a >= 90 ? 4 : a >= 80 ? 3 : a >= 65 ? 2 : a >= 50 ? 1 : 0; }
-    var lLevel = listenLevelFromAcc(listenAcc);                                           // 听力：由 YLE 分级阈值映射（官方 shields 口径）
-    // 权重：阅读/听力为理解核心，各 35%；语言应用 30%（与官方 EOL 四项技能配比一致）
-    var W_V = 0.30, W_R = 0.35, W_L = 0.35;
-    var compositeF = vLevel * W_V + rLevel * W_R + lLevel * W_L;
-    var compositeLevel = Math.max(0, Math.min(4, Math.round(compositeF)));
-    // 官方「防滑坡」定级原则：推荐级别不超过最弱单项级别 +1，避免过度越级导致挫败
-    var minLevel = Math.min(vLevel, rLevel, lLevel);
-    var recLvl = Math.max(0, Math.min(4, Math.min(compositeLevel, minLevel + 1)));
-    var recBook = BOOK_BY_LEVEL[recLvl] || 'pu0';
+    var recLevel = Math.max(P.langLevel, Math.min(6, Math.round((readAcc + listenAcc) / 30)));
+    // 自适应推荐：根据阅读最终等级为主，结合听力
     var readPeak = (P.read && P.read.peakLevel) || 0;
+    var recLvl = Math.max(recLevel, readPeak);
+    recLvl = Math.min(4, recLvl);
+    var recBook = BOOK_BY_LEVEL[recLvl] || 'pu0';
     if (typeof window.gamify === 'object') {
       window.gamify.placementCount = (window.gamify.placementCount || 0) + 1;
       if (window.gamify.placementCount >= 3) window.gamify.unlockBadgeById('placement_3_times');
@@ -1000,64 +931,68 @@
 
     // ===== 多维评价库 =====
     var COMMENT = {
-      vocab: {
-        0: ['📚 能认读最基础的名词（颜色／动物／家庭／数字）与少量高频动词，词汇量约 150-200。',
-            '🎯 建议从 PU0 核心词卡起步，每天 10 词，配图＋音频双通道记忆。'],
-        1: ['📚 掌握 PU0-PU1 衔接阶段核心词（约 250-350），能区分形近词与基础搭配。',
-            '🎯 可进入 PU1，重点用「词族」集中巩固动词短语。'],
-        2: ['📚 词汇量达 A1（约 400-500 词），能就日常主题自由表达，近义词开始分化。',
-            '🎯 适合 PU2，建议每天扩词 20 个，强化同义／反义。'],
-        3: ['📚 具备 A1+ 叙事词汇，能运用简单搭配与一词多义，连句表达更顺。',
-            '🎯 适合 PU3，可引入话题词块（weather／food／holiday）。'],
-        4: ['📚 词汇接近 KET 高频词（600-800），能借助语境猜测生词，读懂短文熟词。',
-            '🎯 可冲刺 PU4，重点补足 Flyers 故事／邮件高频词。']
+      lang: {
+        A: ['📚 词汇掌握极扎实：能精准分辨近义词与拼写相似词，已具备 KET 词汇基础。',
+            '🔊 听觉记忆与视觉记忆联动良好：听音即能快速对应中文释义。',
+            '📈 建议：进入阅读理解阶段，重点练长难句的主谓宾抓取。'],
+        B: ['📚 词汇基础稳固：常用名词/动词/形容词已能灵活调用。',
+            '🔍 部分近义词或一词多义仍有混淆点，建议用「词族」方式集中复习。',
+            '🎯 已经能覆盖 Cambridge Starters 阅读词汇，可以自信进入下一步。'],
+        C: ['📚 词覆盖面中等：核心词汇可以，但日常形容词/副词需要补充。',
+            '🔧 建议每日精读一篇文章，把不会的高频词记下来反复朗读。'],
+        D: ['📚 基础词需巩固：日常名词（颜色、家庭、动物）较为熟练，但动词短语和介词搭配较弱。',
+            '🎯 从 Power Up 0 的核心词卡开始，每天 10 词，三周后再次测评。'],
+        E: ['📚 词汇量偏少：建议先建立 200 基础词的稳固记忆，再做测评。',
+            '🎯 配合图片+音频记忆，每词配 1 个例句，连续复习 21 天可见显著提升。']
       },
       reading: {
-        0: ['🔍 能借助图片读懂 30-50 词简单句，理解主谓宾基本结构。',
-            '🎯 建议从 PU0 短句＋图片题起步，先建立「读→懂」的信心。'],
-        1: ['🔍 能读 PU1 级 60-80 词短文，抓住主旨与显式细节。',
-            '🎯 进入衔接阶段，养成「题干→回文定位」习惯。'],
-        2: ['🔍 能读 A1/Movers 级说明文，定位时间／数字／地点等细节并做简单推断。',
-            '🎯 适合 PU2，主攻 Part 4-5 主旨与推断。'],
-        3: ['🔍 能读 A1+ 较长语篇，理解段落逻辑与作者意图，完形填空稳定。',
-            '🎯 适合 PU3，可加练「无选项猜测」提升推理。'],
-        4: ['🔍 能独立阅读 A2/Flyers 故事与邮件，推断隐含信息并概括。',
-            '🎯 可冲刺 PU4，每周 1 篇原版＋1 套模拟计时。']
-      },
-      listening: {
-        0: ['🎧 能听辨单词、字母与简单指令（YLE Part 1 级），对图片提示依赖较强。',
-            '🎯 从 PU0 听力起步，听前先看图预测。'],
-        1: ['🎧 能抓简单对话中的关键词（人物／动作／地点），需 2 遍以上。',
-            '🎯 进入衔接阶段，用「五指法」听写人物／动作／地点／时间／数字。'],
-        2: ['🎧 能听懂 A1/Movers 对话的主旨与多数细节，对转折／否定偶有遗漏。',
-            '🎯 适合 PU2，每 Part 听 2 遍：整体→细抠转折词。'],
-        3: ['🎧 能听懂 A1+ 较长对话，抓取关键信息并跟住语流，准确率较高。',
-            '🎯 适合 PU3，加练听写＋跟读提升音节切分。'],
-        4: ['🎧 能听懂 A2/Flyers 真实语速语篇，数字／身份／态度都能精准抓取。',
-            '🎯 可冲刺 PU4，听写＋跟读混合训练冲 KET。']
+        A: ['🔍 你能快速定位细节，并对主旨与作者意图有敏锐判断。',
+            '🌟 段落结构意识已建立，能区分主要信息与次要信息。',
+            '🚀 进入更高级别的语篇（如说明文 / 议论文片段）会更受益。'],
+        B: ['🔍 主旨与细节题表现良好，偶有近义替换词丢分。',
+            '💡 训练时把题干的关键词圈出来，再到原文定位，能再稳一档。',
+            '📈 建议隔天一篇原版配套文章，保持稳定发挥。'],
+        C: ['🔍 段落信息和主旨题能够基本抓住，但时间、数字、地点等细节题仍会漏。',
+            '🎯 训练时养成「问什么 → 回文找什么」的习惯，配合指读法。'],
+        D: ['🔍 短文理解有困难，建议先从 30-50 词的简单句开始。',
+            '🎯 每篇先通读一遍（不查词），再做细节题，能更稳。'],
+        E: ['🔍 短文阅读吃力，可能与词汇量及句型熟悉度有关。',
+            '🎯 建议先回到词汇与短句阶段练习，积累 2-3 周后再挑战。']
       },
       cloze: {
         A: ['✍️ 完形填空能力扎实：对上下文线索、时态呼应、词性匹配都掌握得很好。',
             '🎯 可进入更高阶的「词形变换」题。'],
         B: ['✍️ 大部分题能根据上下文推断，少数近义词辨析仍需强化。'],
         C: ['✍️ 容易在第一反应填词，建议先看挖空前后的提示词再决定。'],
-        D: ['✍️ 上下文推理训练不足，建议做 5 篇「无选项猜测＋看答案对照」的练习。'],
+        D: ['✍️ 上下文推理训练不足，建议做 5 篇「无选项猜测 + 看答案对照」的练习。'],
         E: ['✍️ 缺基础，建议先做选择题（看到选项再选）建立语感。']
+      },
+      listening: {
+        A: ['🎧 真实语速下的信息抓取能力扎实，对场景词反应迅速。',
+            '🎧 数字、时间、人物身份等关键信息都能精准抓取。',
+            '🎯 建议听写 + 跟读混合训练，提升音节切分能力。'],
+        B: ['🎧 整体表现良好：主旨与细节题都能拿下，但对快速对话中的转折/否定信息偶有遗漏。',
+            '💡 建议每 Part 听 2-3 遍：第 1 遍整体听，第 2 遍细抠转折词。'],
+        C: ['🎧 中等水平：主旨题能抓住，细节题（数字、时间、地点）仍会漏。',
+            '🎯 建议用「五指法」听写：人物/动作/地点/时间/数字，分别填进格子。'],
+        D: ['🎧 听辨能力较弱：建议从 Power Up 0 / 1 的 Part 1 开始，每天 1 套。',
+            '🎯 全部 Part 都做之前不要跳级。'],
+        E: ['🎧 起步阶段：建议先把每单元配套的 Listen and say / Repeat 练熟练。',
+            '🎯 听之前先看图和选项，带着「预期」去听，能降低难度。']
+      },
+      overall: {
+        A: ['🏆 你的综合表现达到了 A 等！剑桥英语学习路径已为「独立学习者」。',
+            '🎯 接下来的目标是 KET 考试，建议每周定时完成 2 套完整真题。'],
+        B: ['🥇 综合能力 B 等，稳中向好。各模块几乎平衡，短板只有细节题。',
+            '🎯 每日精读 + 精听各 1 篇，6 周后再做一次测评就能冲 A。'],
+        C: ['🥈 综合 C 等，基础牢固。补足一两个薄弱模块就能大幅提升。',
+            '🎯 把下方的「需加强」清单作为本月的复习菜单。'],
+        D: ['🥉 综合 D 等，建议先巩固基础：把 ' + bookFull[recBook].split(' ')[0] + ' 的词汇与核心句型吃透。',
+            '🎯 切忌「越级」：稳扎稳打三轮后再升级。'],
+        E: ['🌱 起步阶段，从最基础的 Pre-A1 开始建立信心，每个级别扎实学习 4-6 周。',
+            '🎯 配合使用「词汇测评」与「原版试卷」巩固。']
       }
     };
-    // 动态推荐评语：综合级别 + 官方防滑坡护栏 + 最弱项提示
-    function recComment() {
-      var weakName = (vLevel === minLevel) ? '词汇' : (rLevel === minLevel) ? '阅读' : '听力';
-      var lines = [];
-      lines.push('📌 综合级别 = 词汇 Lv' + vLevel + ' ×30% ＋ 阅读 Lv' + rLevel + ' ×35% ＋ 听力 Lv' + lLevel + ' ×35% = <b>Lv ' + compositeLevel + '</b>（' + CEFR_LV[compositeLevel] + '）。');
-      lines.push('🛡 遵循剑桥「防滑坡」定级原则：推荐起始级别不超过最弱单项（' + weakName + ' Lv' + minLevel + '）＋1，故推荐 <b>' + bookFull[recBook] + '</b>。');
-      if (vLevel !== rLevel || rLevel !== lLevel) {
-        lines.push('⚠️ 三项能力不均衡：最弱项为 ' + weakName + '（Lv ' + minLevel + '）。建议该项额外投入约 30% 练习量，避免越级挫败、稳步进阶。');
-      } else {
-        lines.push('✅ 三项能力均衡（均为 Lv ' + vLevel + '），可直接进入推荐级别稳步提升。');
-      }
-      return lines;
-    }
     function pickBucket(acc) { return acc >= 90 ? 'A' : acc >= 80 ? 'B' : acc >= 70 ? 'C' : acc >= 60 ? 'D' : 'E'; }
     var langBucket = pickBucket(langAcc), readBucket = pickBucket(readAcc), listenBucket = pickBucket(listenAcc), overallBucket = pickBucket(overall);
     function pickLines(arr, n) {
@@ -1069,12 +1004,13 @@
       }
       return out;
     }
-    var langComments = pickLines(COMMENT.vocab[vLevel], 2);
-    var readComments = pickLines(COMMENT.reading[rLevel], 2);
+    var langComments = pickLines(COMMENT.lang[overallBucket === 'E' ? 'D' : overallBucket], 2);
+    if (langAcc >= 80) langComments = langComments.concat(pickLines(COMMENT.lang['A'], 1));
+    var readComments = pickLines(COMMENT.reading[readBucket], 2);
     var clozeAcc = P.read ? Math.round((P.read.answers.filter(function(a){return a.type==='fill';}).reduce(function(s,a){return s+(a.correct?1:0);},0) / Math.max(1, P.read.answers.filter(function(a){return a.type==='fill';}).length)) * 100) : 0;
     var clozeComments = pickLines(COMMENT.cloze[pickBucket(clozeAcc)], 1);
-    var listenComments = pickLines(COMMENT.listening[lLevel], 2);
-    var overallComments = recComment();
+    var listenComments = pickLines(COMMENT.listening[listenBucket], 2);
+    var overallComments = pickLines(COMMENT.overall[overallBucket], 2);
 
     // ===== 学习路径与目标规划 =====
     var ROADMAP = {
@@ -1140,11 +1076,11 @@
     html += '<div class="rpt-head"><div><div class="rpt-title">🎓 综合定级测评 · 报告</div><div class="rpt-sub">Cambridge Power Up · Adaptive Placement Assessment</div></div><div style="font-size:34px;">' + grade.emoji + '</div></div>';
     html += '<div class="rpt-body">';
     // 元信息
-    html += '<div class="rpt-meta"><span>听力素材：<b>' + P.listen.bookName + '</b></span><span>词汇级别：<b>Lv ' + vLevel + '</b></span><span>阅读级别：<b>Lv ' + rLevel + '</b>（起' + (P.read ? P.read.startLevel : 0) + '→终' + rLevel + '｜峰' + readPeak + '）</span><span>听力级别：<b>Lv ' + lLevel + '</b></span><span>综合级别：<b>Lv ' + compositeLevel + '</b></span></div>';
+    html += '<div class="rpt-meta"><span>听力素材：<b>' + P.listen.bookName + '</b></span><span>阅读起点：<b>Level ' + (P.read ? P.read.startLevel : 0) + '</b></span><span>阅读峰值：<b>Level ' + (P.read ? P.read.peakLevel : 0) + '</b></span><span>语言 Level：<b>' + P.langLevel + '</b></span></div>';
     // 综合分仪表
     html += '<div style="display:flex; align-items:center; gap:18px; margin:4px 0 14px;">';
     html += '<div style="width:98px; height:98px; border-radius:50%; background:conic-gradient(var(--gold) ' + overall + '%, var(--card) 0); display:flex; align-items:center; justify-content:center; flex:0 0 auto;"><div style="width:76px;height:76px;border-radius:50%;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;"><div style="font-size:22px;font-weight:800;color:var(--gold);">' + overall + '%</div><div style="font-size:10px;color:var(--muted);">综合分</div></div></div>';
-    html += '<div><div style="font-size:12px;color:var(--muted);">综合评级</div><div style="font-size:26px;font-weight:800;color:var(--gold);">' + grade.letter + ' · ' + grade.cn + '</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">级别权重：词汇 30% + 阅读 35% + 听力 35%（按 CEFR 理解技能配比）</div></div>';
+    html += '<div><div style="font-size:12px;color:var(--muted);">综合评级</div><div style="font-size:26px;font-weight:800;color:var(--gold);">' + grade.letter + ' · ' + grade.cn + '</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">权重：语言 30% + 阅读 35% + 听力 35%</div></div>';
     html += '</div>';
     // 三维度表
     html += '<table class="rpt"><thead><tr><th>测评维度</th><th>说明</th><th>准确率</th><th>评级</th></tr></thead><tbody>';
@@ -1156,15 +1092,6 @@
     html += '<tr style="background:rgba(212,165,116,.07);"><td><b>综合</b></td><td style="color:var(--muted);font-size:12px;">加权总分</td><td class="rpt-good"><b>' + overall + '%</b></td><td class="' + rptAccCls(overall) + '"><b>' + grade.letter + '</b></td></tr>';
     html += '</tbody></table>';
     // 分项分析与教师评语
-    // 技能级别矩阵（官方 CEFR 分级）
-    html += '<div style="margin:10px 0;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px;">';
-    html += '<div style="font-size:12px;color:var(--muted);margin-bottom:6px;">🧭 技能级别矩阵（0-4 → CEFR → Power Up）</div>';
-    html += '<table class="rpt" style="margin:0;"><thead><tr><th>技能</th><th>级别</th><th>CEFR</th><th>权重</th></tr></thead><tbody>';
-    html += '<tr><td>📖 词汇</td><td><b>Lv ' + vLevel + '</b></td><td>' + CEFR_LV[vLevel] + '</td><td>30%</td></tr>';
-    html += '<tr><td>🔍 阅读</td><td><b>Lv ' + rLevel + '</b></td><td>' + CEFR_LV[rLevel] + '</td><td>35%</td></tr>';
-    html += '<tr><td>🎧 听力</td><td><b>Lv ' + lLevel + '</b></td><td>' + CEFR_LV[lLevel] + '</td><td>35%</td></tr>';
-    html += '<tr style="background:rgba(212,165,116,.07);"><td><b>综合</b></td><td><b>Lv ' + compositeLevel + '</b></td><td>' + CEFR_LV[compositeLevel] + '</td><td>100%</td></tr>';
-    html += '</tbody></table></div>';
     html += '<div class="rpt-section"><h4>📊 分项分析与教师评语</h4>';
     function blockCmt2(title, color, lines){ var s = '<div style="margin:8px 0;"><div style="font-size:13px;color:' + color + ';font-weight:600;margin-bottom:4px;">' + title + '</div>'; lines.forEach(function(l){ s += '<div style="font-size:12px;color:var(--text);line-height:1.65;padding:2px 0;">' + l + '</div>'; }); s += '</div>'; return s; }
     html += blockCmt2('📖 语言应用 / 词汇能力', 'var(--gold)', langComments);
@@ -1173,7 +1100,7 @@
     html += blockCmt2('🎓 综合定性', 'var(--gold)', overallComments);
     html += '</div>';
     // 推荐起始级别
-    html += '<div class="rpt-rec"><div style="font-size:12px;color:var(--muted);">📌 推荐起始级别（官方 CEFR 防滑坡定级）</div><div class="big">' + bookFull[recBook] + '</div><div class="sub">综合 Lv ' + compositeLevel + '（词汇'+vLevel+'×30% + 阅读'+rLevel+'×35% + 听力'+lLevel+'×35%）｜ 受最弱项 Lv '+minLevel+' 限制（≤+1）→ 定 Lv '+recLvl+'</div></div>';
+    html += '<div class="rpt-rec"><div style="font-size:12px;color:var(--muted);">📌 推荐起始级别</div><div class="big">' + bookFull[recBook] + '</div><div class="sub">依据：阅读峰值 ' + (P.read ? P.read.peakLevel : 0) + ' + 语言 Level ' + P.langLevel + ' + 听力 ' + listenAcc + '%</div></div>';
     // 学习路径
     html += '<div class="rpt-section"><h4>' + plan.title + '</h4><div style="font-size:12px;color:var(--muted);">⏱ ' + plan.weeks + ' ｜ 📅 ' + plan.daily + '</div><div style="font-size:12px;color:var(--gold);font-weight:600;margin:8px 0 2px;">🎯 阶段目标</div><ul class="rpt">';
     plan.goals.forEach(function(gg){ html += '<li>' + gg + '</li>'; });
@@ -1193,7 +1120,7 @@
       html += '</div>';
     }
     // 评分标准（折叠）
-    html += '<details style="margin-top:12px;"><summary style="color:var(--gold);font-size:13px;cursor:pointer;">📐 查看评分标准（量化）</summary><div style="padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px;text-align:left;margin-top:8px;"><ul class="rpt" style="color:var(--muted);"><li>词汇/语言应用：共 ' + LANG_TOTAL + ' 题，自适应（连对 3 题升 1 级 / 错 1 题降 1 级）。</li><li>阅读理解：4 篇短文（pu0~pu4），每篇 4-5 题，自适应等级升降，权重 35%。</li><li>听力理解：5 个 Part，权重 35%。</li><li>综合正确率（评级口径）= 词汇×30% + 阅读×35% + 听力×35% → 评级 A/B/C/D/E（≥90/80/70/60）。</li><li>技能级别（0-4 → CEFR）：词汇=自适应定级；阅读=4 篇自适应最终稳定级别；听力=正确率按 YLE shields 阈值映射（≥90→Lv4, ≥80→Lv3, ≥65→Lv2, ≥50→Lv1, 否则 Lv0）。</li><li>综合级别 = round(词汇×0.30 + 阅读×0.35 + 听力×0.35)，钳制 0-4。</li><li>推荐级别（官方防滑坡）：min(综合级别, 最弱单项级别 + 1)，钳制 0-4 —— 不按最高项越级。</li></ul></div></details>';
+    html += '<details style="margin-top:12px;"><summary style="color:var(--gold);font-size:13px;cursor:pointer;">📐 查看评分标准（量化）</summary><div style="padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px;text-align:left;margin-top:8px;"><ul class="rpt" style="color:var(--muted);"><li>语言应用：共 ' + LANG_TOTAL + ' 题，自适应（连对 3 题升 1 级 / 错 1 题降 1 级）。</li><li>阅读理解：4 篇短文（pu0~pu4），每篇 4-5 题，自适应等级升降，权重 35%。</li><li>听力理解：5 个 Part，权重 35%。</li><li>综合正确率 = 语言×30% + 阅读×35% + 听力×35%。</li><li>评级：≥90 A ｜ ≥80 B ｜ ≥70 C ｜ ≥60 D ｜ &lt;60 E。</li><li>推荐级别 = max(语言 Level, 阅读峰值, 听力推导级别)。</li></ul></div></details>';
     html += '<div class="rpt-actions"><button class="btn" onclick="startPlacement()">🔄 重新测评</button><button class="btn btn-outline" onclick="showApp(\'achievements\')">🏅 查看成就</button><button class="btn btn-outline" onclick="showApp(\'home\')">🏠 返回首页</button><button class="btn btn-outline" onclick="showApp(\'test\')">📋 推荐级别练习</button></div>';
     html += '<div class="rpt-foot">阅读与听力题库按官方 EOL 卷重建，答案键对照 Cambridge 教师答案页 (Pre A1/A1/A2)。</div>';
     html += '</div></div>';

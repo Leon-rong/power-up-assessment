@@ -1026,7 +1026,8 @@ html, body {
       <div class="viewer-controls" id="viewerControls">
         <button class="ctrl-btn" onclick="prevPage()" id="prevBtn">◀ 上一页</button>
         <button class="ctrl-btn" onclick="nextPage()" id="nextBtn">下一页 ▶</button>
-        <button class="ctrl-btn" onclick="toggleAnswer()" id="toggleAnsBtn">📄 答案</button>
+        <button class="ctrl-btn" onclick="toggleViewerMode()" id="viewerModeBtn">📖 查看答案页</button>
+        <button class="ctrl-btn" onclick="toggleAnswer()" id="toggleAnsBtn">🔑 答案键</button>
         <button class="ctrl-btn" onclick="zoomIn()">🔍+</button>
         <button class="ctrl-btn" onclick="zoomOut()">🔍−</button>
         <button class="ctrl-btn" onclick="resetZoom()">⟲</button>
@@ -2042,6 +2043,9 @@ var currentTest = null;
 var currentPage = 1;
 var showAnswer = false;
 var zoomLevel = 1;
+// 查看器模式：'question' = 只翻题目页（过滤掉原卷内嵌答案页）；'answer' = 只翻答案页
+var viewerMode = 'question';
+var ansPageIdx = 0;
 var currentAudioPart = -1;
 var prevPageCount = 0;
 
@@ -2136,6 +2140,9 @@ function closeViewer() {
   document.getElementById('test-list-area').style.display = 'block';
   currentTest = null;
   currentPage = 1;
+  viewerMode = 'question';
+  ansPageIdx = 0;
+  showAnswer = false;
 }
 
 
@@ -2186,8 +2193,14 @@ function openTest(bookId) {
     quizScore = { correct: 0, total: 0 };
   }
   loadTestList();
-  currentPage = 1;
+  viewerMode = 'question';
+  ansPageIdx = 0;
+  currentPage = (currentTest.qPages && currentTest.qPages[0]) || 1;
   showAnswer = false;
+  var _vm = document.getElementById('viewerModeBtn');
+  if (_vm) _vm.textContent = '📖 查看答案页';
+  var _ak = document.getElementById('toggleAnsBtn');
+  if (_ak) _ak.textContent = '🔑 答案键';
   // 显示查看器，隐藏列表
   document.getElementById('test-list-area').style.display = 'none';
   document.getElementById('test-viewer').style.display = 'block';
@@ -2418,18 +2431,50 @@ function genTestList(prefix, count) {
 
 function loadTestList() {
   if (!currentTest) return;
-  var base = 'images_webp/' + currentTest.id + '_' + (currentTest.id === 'pu0' ? 'starters' : currentTest.id === 'pu2' ? 'movers' : currentTest.id === 'pu3' ? 'movers' : 'flyers');
+  var sub = (currentTest.id === 'pu0' || currentTest.id === 'pu1') ? 'starters' : (currentTest.id === 'pu2' || currentTest.id === 'pu3') ? 'movers' : 'flyers';
+  var base = 'images_webp/' + currentTest.id + '_' + sub;
   currentTest.images = [];
   for (var i = 1; i <= currentTest.pages; i++) {
-    currentTest.images.push(base + '/' + currentTest.id + '_' + (currentTest.id === 'pu0' ? 'starters' : currentTest.id === 'pu2' ? 'movers' : currentTest.id === 'pu3' ? 'movers' : 'flyers') + '_' + String(i).padStart(3, '0') + '.webp');
+    currentTest.images.push(base + '/' + currentTest.id + '_' + sub + '_' + String(i).padStart(3, '0') + '.webp');
   }
   currentTest.answerImages = [];
   if (currentTest.akPages > 0) {
-    var akBase = 'images_webp/' + currentTest.id + '_' + (currentTest.id === 'pu0' ? 'starters_ak' : currentTest.id === 'pu2' ? 'movers_ak' : currentTest.id === 'pu4' ? 'flyers_ak' : 'movers_ak');
+    var akSub = sub + '_ak';
+    var akBase = 'images_webp/' + currentTest.id + '_' + akSub;
     for (var j = 1; j <= currentTest.akPages; j++) {
-      currentTest.answerImages.push(akBase + '/' + currentTest.id + '_' + (currentTest.id === 'pu0' ? 'starters_ak' : currentTest.id === 'pu2' ? 'movers_ak' : currentTest.id === 'pu4' ? 'flyers_ak' : 'movers_ak') + '_' + String(j).padStart(3, '0') + '.webp');
+      currentTest.answerImages.push(akBase + '/' + currentTest.id + '_' + akSub + '_' + String(j).padStart(3, '0') + '.webp');
     }
   }
+  buildPageViews();
+}
+
+// 按 PAGE_META 把原卷页面拆成「题目页」与「答案页」两条独立序列，互不混杂
+function buildPageViews() {
+  if (!currentTest) return;
+  var meta = (typeof PAGE_META !== 'undefined' && PAGE_META[currentTest.id]) || [];
+  var qPages = [];
+  var ansView = [];
+  var total = currentTest.pages || currentTest.images.length;
+  for (var i = 1; i <= total; i++) {
+    var t = meta[i - 1] || 'question';
+    if (t === 'answer') {
+      // 原卷内嵌的答案页 → 归入答案序列
+      ansView.push({ src: currentTest.images[i - 1] || '', label: '原卷答案 P' + i });
+    } else {
+      // 封面/说明/题目/素材页 → 归入题目序列
+      qPages.push(i);
+    }
+  }
+  // 独立 Answer Key PDF 的页面 → 追加到答案序列末尾
+  (currentTest.answerImages || []).forEach(function(src, j) {
+    ansView.push({ src: src, label: '答案键 AK' + (j + 1) });
+  });
+  // 兜底：若 PAGE_META 缺失导致题目页为空，则回退为全部页面
+  if (qPages.length === 0) {
+    for (var k = 1; k <= total; k++) qPages.push(k);
+  }
+  currentTest.qPages = qPages;
+  currentTest.ansView = ansView;
 }
 
 
@@ -5506,6 +5551,8 @@ function renderQuizResetBar() {
 }
 
 function toggleQuizMode() {
+  // 答案页模式下不允许答题，先切回题目序列
+  if (quizMode === false && viewerMode === 'answer') toggleViewerMode();
   quizMode = !quizMode;
   var qa = document.getElementById('quizArea');
   var btn = document.getElementById('quizModeBtn');
@@ -5637,7 +5684,7 @@ function showNoQuestionPage(pageType) {
 
   var tip = '';
   if (pageType === 'answer') {
-    tip = '官方答案键页，可点击右上角 📄 答案 查看';
+    tip = '官方答案键页，请点「📖 查看答案页」切换到答案序列，或点 🔑 答案键 对照';
   } else if (pageType === 'cover' || pageType === 'blank') {
     tip = '无需作答';
   } else if (pageType === 'material') {
@@ -5646,7 +5693,7 @@ function showNoQuestionPage(pageType) {
       (mt.prev ? '（上一题页：第 ' + mt.prev + ' 页）' : '') +
       (mt.next ? '（下一题页：第 ' + mt.next + ' 页）' : '');
   } else {
-    tip = '暂无自动判分，请查看 📄 答案 键对照官方答案';
+    tip = '暂无自动判分，请点 🔑 答案键 对照官方答案';
   }
 
   qEl.innerHTML = '<div style="padding:10px 0;"><div style="font-size:14px; color:var(--muted);">第 ' + currentPage + ' 页 · ' + typeLabel + '</div>' +
@@ -6274,17 +6321,43 @@ function renderTestPage() {
   var img = document.getElementById('viewerImg');
   var pageNum = document.getElementById('pageNum');
   var viewerName = document.getElementById('viewerName');
+  var qArea = document.getElementById('quizArea');
+
+  // 保证题目/答案序列已构建
+  if (!currentTest.qPages) buildPageViews();
+
+  img.style.display = 'block';
+
+  if (viewerMode === 'answer') {
+    // ===== 答案模式：只显示答案页（原卷内嵌答案页 + 独立答案键 PDF）=====
+    var ans = currentTest.ansView || [];
+    if (ansPageIdx < 0) ansPageIdx = 0;
+    if (ansPageIdx > ans.length - 1) ansPageIdx = Math.max(0, ans.length - 1);
+    var item = ans[ansPageIdx];
+    img.src = item ? item.src : '';
+    pageNum.textContent = ans.length ? (ansPageIdx + 1) + '/' + ans.length : '0/0';
+    viewerName.textContent = currentTest.name + ' · 答案' + (item ? '（' + item.label + '）' : '');
+    document.getElementById('prevBtn').disabled = ansPageIdx <= 0;
+    document.getElementById('nextBtn').disabled = ansPageIdx >= ans.length - 1;
+    // 答案模式不展示题目/答案键输入区
+    if (qArea) qArea.style.display = 'none';
+    return;
+  }
+
+  // ===== 题目模式：只翻题目页，自动跳过原卷内嵌答案页 =====
+  var qPages = currentTest.qPages || [];
+  var idx = qPages.indexOf(currentPage);
+  if (idx < 0) { currentPage = qPages[0] || 1; idx = 0; }
 
   img.src = currentTest.images[currentPage - 1] || '';
-  img.style.display = 'block';
-  pageNum.textContent = currentPage + '/' + currentTest.pages;
-  viewerName.textContent = currentTest.name + (showAnswer ? '（答案）' : '');
+  pageNum.textContent = (idx + 1) + '/' + qPages.length + '（原卷 P' + currentPage + '）';
+  viewerName.textContent = currentTest.name + ' · 题目' + (showAnswer ? '（答案键）' : '');
 
-  // 更新按钮状态
-  document.getElementById('prevBtn').disabled = currentPage <= 1;
-  document.getElementById('nextBtn').disabled = currentPage >= currentTest.pages;
+  // 更新按钮状态（按题目序列翻页）
+  document.getElementById('prevBtn').disabled = idx <= 0;
+  document.getElementById('nextBtn').disabled = idx >= qPages.length - 1;
 
-  // 答题模式下显示题目或答案键；浏览模式下若已开启答案则同步刷新
+  // 答题模式下显示题目或答案键；浏览模式下若已开启答案键则同步刷新
   if (quizMode) {
     if (showAnswer) {
       renderAnswerKey();
@@ -6293,28 +6366,78 @@ function renderTestPage() {
     }
   } else if (showAnswer) {
     renderAnswerKey();
+  } else if (qArea) {
+    qArea.style.display = 'none';
   }
 }
-function prevPage() {
-  if (currentPage <= 1) return;
-  currentPage--;
+
+// 切换「题目页 / 答案页」两条独立序列
+function toggleViewerMode() {
+  viewerMode = (viewerMode === 'question') ? 'answer' : 'question';
+  var btn = document.getElementById('viewerModeBtn');
+  if (btn) btn.textContent = (viewerMode === 'answer') ? '📝 回到题目' : '📖 查看答案页';
+  // 切模式下收起答案键输入区，避免题目/答案信息同屏混杂
   showAnswer = false;
+  var akBtn = document.getElementById('toggleAnsBtn');
+  if (akBtn) akBtn.textContent = '🔑 答案键';
+  if (viewerMode === 'answer') {
+    ansPageIdx = 0;
+    quizMode = false;
+    var qmBtn = document.getElementById('quizModeBtn');
+    if (qmBtn) qmBtn.textContent = '📝 答题模式';
+  } else {
+    if (!currentTest || !currentTest.qPages) buildPageViews();
+    currentPage = (currentTest && currentTest.qPages && currentTest.qPages[0]) || 1;
+  }
+  renderTestPage();
+}
+
+function prevPage() {
+  if (viewerMode === 'answer') {
+    if (ansPageIdx <= 0) return;
+    ansPageIdx--;
+    renderTestPage();
+    return;
+  }
+  if (!currentTest || !currentTest.qPages) buildPageViews();
+  var qPages = currentTest.qPages || [];
+  var idx = qPages.indexOf(currentPage);
+  if (idx <= 0) return;
+  currentPage = qPages[idx - 1];
+  showAnswer = false;
+  var akBtn = document.getElementById('toggleAnsBtn');
+  if (akBtn) akBtn.textContent = '🔑 答案键';
   renderTestPage();
 }
 
 function nextPage() {
-  var test = currentTest;
-  if (!test) return;
-  if (currentPage >= test.pages) return;
-  currentPage++;
+  if (viewerMode === 'answer') {
+    var ans = (currentTest && currentTest.ansView) || [];
+    if (ansPageIdx >= ans.length - 1) return;
+    ansPageIdx++;
+    renderTestPage();
+    return;
+  }
+  if (!currentTest || !currentTest.qPages) buildPageViews();
+  var qPages = currentTest.qPages || [];
+  var idx = qPages.indexOf(currentPage);
+  if (idx < 0 || idx >= qPages.length - 1) return;
+  currentPage = qPages[idx + 1];
   showAnswer = false;
+  var akBtn = document.getElementById('toggleAnsBtn');
+  if (akBtn) akBtn.textContent = '🔑 答案键';
   renderTestPage();
 }
 
 function toggleAnswer() {
+  // 答案页模式下图片已是答案，不再叠加文字答案键
+  if (viewerMode === 'answer') {
+    toggleViewerMode();
+    return;
+  }
   showAnswer = !showAnswer;
   var btn = document.getElementById('toggleAnsBtn');
-  if (btn) btn.textContent = showAnswer ? '📄 题目' : '📄 答案';
+  if (btn) btn.textContent = showAnswer ? '📝 返回题目' : '🔑 答案键';
   var qa = document.getElementById('quizArea');
   if (showAnswer) {
     if (qa) qa.style.display = 'block';
@@ -6331,14 +6454,20 @@ function toggleAnswer() {
 // 渲染当前页答案键（从分离的 PAGE_ANSWERS 读取，与题目按页+序号对应）
 function renderAnswerKey() {
   var qa = document.getElementById('quizArea');
-  if (!qa) return;
+  var qEl = document.getElementById('quizQuestion');
+  var oEl = document.getElementById('quizOptions');
+  var resEl = document.getElementById('quizResult');
+  if (!qa || !qEl || !oEl) return;
   qa.style.display = 'block';
   var bookId = currentTest ? currentTest.id : 'pu0';
   var page = currentPage || 1;
   var ansList = (PAGE_ANSWERS[bookId] && PAGE_ANSWERS[bookId][page]) || [];
   var qList = (PAGE_QUESTIONS[bookId] && PAGE_QUESTIONS[bookId][page]) || [];
   if (ansList.length === 0) {
-    qa.innerHTML = '<div style="color:var(--muted); text-align:center; padding:24px;">第 ' + page + ' 页 · 暂无答案（本页无题目或为题解/封面页）</div>';
+    // 写入 quizQuestion/quizOptions，保留 quizArea 的 DOM 结构（否则子元素被销毁，后续渲染全断）
+    qEl.innerHTML = '<div style="color:var(--muted); text-align:center; padding:24px;">第 ' + page + ' 页 · 暂无答案（本页无题目或为题解/封面页）</div>';
+    oEl.innerHTML = '';
+    if (resEl) resEl.style.display = 'none';
     return;
   }
   var out = '<div style="text-align:center; margin-bottom:12px; color:var(--gold); font-weight:700; font-size:16px;">📄 第 ' + page + ' 页 · 答案</div>';
@@ -6351,7 +6480,9 @@ function renderAnswerKey() {
     if (a.hint) out += '<div style="font-size:12px; color:var(--muted); margin-top:4px;">💡 ' + a.hint + '</div>';
     out += '</div>';
   });
-  qa.innerHTML = out;
+  qEl.innerHTML = out;
+  oEl.innerHTML = '';
+  if (resEl) resEl.style.display = 'none';
 }
 
 function zoomIn() {
@@ -7011,21 +7142,39 @@ function playGameSound(type) {
 }
 
 
+// 彻底清理所有游戏容器 + 计时器（避免退出后残留/后台发声）
+function clearAllGameContainers(keep) {
+  ['game-climb', 'game-match3', 'game-tone'].forEach(function (id) {
+    if (id === keep) return;
+    var el = document.getElementById(id);
+    if (el) el.remove();
+  });
+  if (gameState.timer) { clearInterval(gameState.timer); gameState.timer = null; }
+  if (gameState.matchTimer) { clearTimeout(gameState.matchTimer); gameState.matchTimer = null; }
+  // 停掉音调播放链（先置 running=false 再清定时器，避免回调复活）
+  if (typeof toneState !== 'undefined') {
+    toneState.running = false;
+    toneState.currentIdx = 0;
+    toneState.sequence = [];
+    if (toneState.playTimer) { clearTimeout(toneState.playTimer); toneState.playTimer = null; }
+    (toneState.demoTimers || []).forEach(function (t) { clearTimeout(t); });
+    toneState.demoTimers = [];
+  }
+  if (typeof toneCtx !== 'undefined' && toneCtx) { try { toneCtx.close(); } catch (e) {} toneCtx = null; }
+  // 清掉消消乐升级动画锁，避免换游戏后残留遮罩
+  if (typeof gameState !== 'undefined') gameState.isLevelUpAnimating = false;
+}
+
 // 重置游戏页
 function resetGamePage() {
   var home = document.getElementById('game-home');
   var content = document.getElementById('game-content');
   if (home) home.style.display = 'block';
-  // 移除动态添加的游戏界面（game-climb, game-match3）
-  var climb = document.getElementById('game-climb');
-  if (climb) climb.remove();
-  var match = document.getElementById('game-match3');
-  if (match) match.remove();
+  // 移除所有动态游戏界面（含 game-tone），彻底清空
+  clearAllGameContainers(null);
   // 重置状态
   gameState.running = false;
   gameState.type = null;
-  if (gameState.timer) { clearInterval(gameState.timer); gameState.timer = null; }
-  if (gameState.matchTimer) { clearTimeout(gameState.matchTimer); gameState.matchTimer = null; }
   // 重新绑定游戏卡片点击事件
   bindGameCards();
 }
@@ -7107,8 +7256,7 @@ var CLIMB_MODES = {
 function renderClimbSetup() {
   var content = document.getElementById('game-content');
   if (!content) return;
-  var old = document.getElementById('game-climb'); if (old) old.remove();
-  var oldm = document.getElementById('game-match3'); if (oldm) oldm.remove();
+  clearAllGameContainers(); // 全部清除（含旧 game-climb），防止选择页反复叠加
   var div = document.createElement('div');
   div.id = 'game-climb';
   content.appendChild(div);
@@ -7473,7 +7621,7 @@ function startMatch3Game() {
   var content = document.getElementById('game-content');
   var home = document.getElementById('game-home');
   if (home) home.style.display = 'none';
-  ['game-climb','game-match3','game-tone'].forEach(function(id){ var el=document.getElementById(id); if(el) el.remove(); });
+  clearAllGameContainers(); // 全部清除（含旧 game-match3），防止再来一局时同 id 容器叠加
   var div = document.createElement('div');
   div.id = 'game-match3';
   content.appendChild(div);
@@ -7648,7 +7796,7 @@ function showMatch3Page() {
           var bgB = 'radial-gradient(circle at 30% 25%, rgba(255,255,255,.55), rgba(255,255,255,0) 45%), linear-gradient(135deg, #fa709a 0%, #ff9a3c 100%)';
           var bgGradient = isEnglish ? bgA : bgB;
           var borderStyle = isSelected ? 'border:3px solid #fff; box-shadow:0 0 22px var(--gold), 0 0 44px rgba(255,215,0,.5); transform:scale(1.08); z-index:2;' : 'border:2px solid rgba(255,255,255,.22); box-shadow:0 4px 10px rgba(0,0,0,.35);';
-          html += '<div data-cell onclick="selectMatch3Cell(' + r + ',' + c + ')" style="aspect-ratio:1; background:' + bgGradient + '; border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:all .18s; ' + borderStyle + '" title="' + (isEnglish ? cell.meaning : cell.word) + '">';
+          html += '<div data-cell data-r="' + r + '" data-c="' + c + '" onclick="selectMatch3Cell(' + r + ',' + c + ')" style="aspect-ratio:1; background:' + bgGradient + '; border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:all .18s; ' + borderStyle + '" title="' + (isEnglish ? cell.meaning : cell.word) + '">';
           html += '<div style="font-size:' + fontSize + 'px; font-weight:800; color:#fff; text-shadow:0 2px 5px rgba(0,0,0,.4); text-align:center; padding:2px 6px; line-height:1.15;">' + cell.text + '</div>';
           html += '</div>';
         }
@@ -7691,9 +7839,10 @@ function hintMatch3() {
     if (cell.matched) continue;
     if (!first) { first = { id: cell.id, type: cell.type, r: r, c: c }; continue; }
     if (cell.id === first.id && cell.type !== first.type) {
-      var els = document.querySelectorAll('#game-match3 [data-cell]');
-      var iA = first.r * cols + first.c, iB = r * cols + c;
-      [iA, iB].forEach(function(i){ if (els[i]) { els[i].style.outline = '3px solid var(--gold)'; els[i].style.outlineOffset = '2px'; els[i].style.animation = 'matchPulse .7s ease-in-out 2'; } });
+      // 按坐标精确定位（已消除格子不带 data-cell，下标映射会错位）
+      var elA = document.querySelector('#game-match3 [data-r="' + first.r + '"][data-c="' + first.c + '"]');
+      var elB = document.querySelector('#game-match3 [data-r="' + r + '"][data-c="' + c + '"]');
+      [elA, elB].forEach(function(el){ if (el) { el.style.outline = '3px solid var(--gold)'; el.style.outlineOffset = '2px'; el.style.animation = 'matchPulse .7s ease-in-out 2'; } });
       gameState.hints--;
       playGameSound('select');
       setTimeout(function(){ showMatch3Page(); }, 1300);
@@ -7801,7 +7950,7 @@ function levelUpMatch3(/* errs */) {
   
   setTimeout(function() {
     gameState.level++;
-    gameState.combo = 0;
+    // 连击数跨关卡保持连续（不随升级/降级清零），仅重置棋盘与计时
     gameState.board = [];
     gameState.selected = null;
     gameState.boardErrors = 0;
@@ -7825,7 +7974,7 @@ function levelDownMatch3(errs) {
   
   setTimeout(function() {
     gameState.level--;
-    gameState.combo = 0;
+    // 连击保持连续（降级不清零）
     gameState.board = [];
     gameState.selected = null;
     gameState.boardErrors = 0;
@@ -7846,7 +7995,7 @@ function replayMatch3Level(errs) {
   container.appendChild(toast);
   
   setTimeout(function() {
-    gameState.combo = 0;
+    // 连击保持连续（重玩本关不清零）
     gameState.board = [];
     gameState.selected = null;
     gameState.boardErrors = 0;
@@ -7978,6 +8127,7 @@ var toneState = {
   playTimer: null,
   demoPlayed: false
 };
+var toneCtx = null; // 当前播放中的 AudioContext，退出时关闭以停止后台发声
 
 // 1-10 级速度/难度递增：音调更短、间隔更短、音差更小（越高级越难）
 function toneParams(level) {
@@ -7996,12 +8146,14 @@ function startToneGame() {
   toneState.totalRounds = 0;
   toneState.correctRounds = 0;
   toneState.bestLevel = 1;
-  toneState.running = true;
+  toneState.running = false;
   toneState.demoPlayed = false;
   var content = document.getElementById('game-content');
   var home = document.getElementById('game-home');
   if (home) home.style.display = 'none';
-  ['game-climb','game-match3','game-tone'].forEach(function(id){ var el=document.getElementById(id); if(el) el.remove(); });
+  // 先清理其他游戏容器（会重置 toneState），再置 running，顺序不可颠倒
+  clearAllGameContainers(); // 全部清除，防止重复进入时同 id 容器叠加
+  toneState.running = true;
   var div = document.createElement('div');
   div.id = 'game-tone';
   content.appendChild(div);
@@ -8020,9 +8172,12 @@ function initToneRound() {
 }
 
 function playTone(type, jump) {
+  // 游戏已退出/切换时不再发声，杜绝后台残留
+  if (typeof toneState !== 'undefined' && !toneState.running) return;
   try {
     var j = jump || 300;
     var ctx = new (window.AudioContext || window.webkitAudioContext)();
+    toneCtx = ctx;
     var osc = ctx.createOscillator();
     var gain = ctx.createGain();
     osc.connect(gain); gain.connect(ctx.destination);
@@ -8042,6 +8197,7 @@ function playToneSeq() {
   var pr = toneParams(toneState.level);
   var i = 0;
   function playNext() {
+    if (!toneState.running) return; // 退出后停止播放链，避免后台持续发声
     if (i >= toneState.sequence.length) {
       setTimeout(function(){ showTonePage('select'); }, pr.gap + 250);
       return;
@@ -8185,9 +8341,12 @@ function showTonePage(state) {
   // 整局游戏只在第一次进入准备页时自动播放一次上下音调示例（晋级/降级不再重播）
   if (state === 'ready' && !toneState.demoPlayed) {
     toneState.demoPlayed = true;
-    setTimeout(function() {
-      try { playTone('up', 300); setTimeout(function(){ playTone('down', 300); }, 750); } catch(e) {}
-    }, 600);
+    // 用可追踪的计时器，退出/切游戏时能一并取消，避免后台残留发声
+    toneState.demoTimers = toneState.demoTimers || [];
+    toneState.demoTimers.push(setTimeout(function() {
+      try { playTone('up', 300); } catch(e) {}
+      toneState.demoTimers.push(setTimeout(function() { try { playTone('down', 300); } catch(e) {} }, 750));
+    }, 600));
   }
 }
 
@@ -8262,22 +8421,14 @@ function endToneGame(win) {
 
 function confirmExitGame() {
   if (confirm('确定要退出游戏吗？当前进度将不会保存。')) {
-    if (gameState.timer) clearInterval(gameState.timer);
-    if (gameState.matchTimer) clearTimeout(gameState.matchTimer);
-    if (toneState.playTimer) clearTimeout(toneState.playTimer);
     gameState.running = false;
     gameState.type = null;
     gameState.selected = null;
     toneState.running = false;
-    // 清除游戏界面
+    // 清除所有游戏界面与计时器（彻底清理，避免残留）
+    clearAllGameContainers(null);
     var home = document.getElementById('game-home');
     if (home) home.style.display = 'block';
-    var climb = document.getElementById('game-climb');
-    if (climb) climb.remove();
-    var match = document.getElementById('game-match3');
-    if (match) match.remove();
-    var tone = document.getElementById('game-tone');
-    if (tone) tone.remove();
   }
 }
 
