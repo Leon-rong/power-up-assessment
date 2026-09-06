@@ -609,9 +609,17 @@
     return 'images_webp/' + id + '_' + sub + '/' + id + '_' + sub + '_' + String(page).padStart(3, '0') + '.webp';
   }
 
-  // 归一化答案：忽略大小写/空格/连字符（官方拼写答案形如 J-O-N-E-S、H-A-L-L）
+  // 数字单词 -> 数字（three -> 3），使 3 与 three 等价；顺序保证 thirteen 不会错配成 three
+  var NUM_WORDS = { zero:0, one:1, two:2, three:3, four:4, five:5, six:6, seven:7, eight:8, nine:9,
+    ten:10, eleven:11, twelve:12, thirteen:13, fourteen:14, fifteen:15, sixteen:16, seventeen:17, eighteen:18, nineteen:19,
+    twenty:20, thirty:30, forty:40, fifty:50, sixty:60, seventy:70, eighty:80, ninety:90, hundred:100 };
+
+  // 归一化答案：忽略大小写/空格/连字符（J-O-N-E-S ≈ jones），并将英文数字单词转为阿拉伯数字（three ≈ 3）
   function normAns(s) {
-    return String(s == null ? '' : s).toLowerCase().replace(/[\s\-_.,'!]/g, '');
+    var t = String(s == null ? '' : s).toLowerCase().replace(/[\s\-_.,'!]/g, '');
+    // 仅在整词匹配数字单词时替换，避免影响拼写答案（如 jones）与颜色词（如 blue）
+    t = t.replace(/[a-z]+/g, function (w) { return (w in NUM_WORDS) ? String(NUM_WORDS[w]) : w; });
+    return t;
   }
 
   function buildListeningBank(book) {
@@ -690,11 +698,12 @@
     if (part.pages && part.pages.length) {
       html += '  <div style="margin-top:14px;">';
       html += '    <div style="font-size:12px; color:var(--muted); margin-bottom:6px;">📄 官方原卷试题页（第 ' + part.pages.join('、') + ' 页）· 点击图片可放大</div>';
-      html += '    <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">';
+      html += '    <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center; align-items:center;">';
       part.pages.forEach(function (pg) {
         var src = listenPageImg(L.book, pg);
         html += '      <img src="' + src + '" alt="原卷第 ' + pg + ' 页" onclick="window.open(this.src,\'_blank\')" ';
-        html += 'style="max-width:100%; width:' + (part.pages.length > 1 ? '46%' : '88%') + '; border:1px solid var(--border); border-radius:10px; background:#fff; cursor:zoom-in;">';
+        // 用定高（而非双 auto，flex 下双 auto 会被算成 0）锁定纵向高度，避免长图上下滚动；点击可放大看原图
+        html += 'style="max-width:100%; height:' + (part.pages.length > 1 ? '260px' : '300px') + '; width:auto; object-fit:contain; border:1px solid var(--border); border-radius:10px; background:#fff; cursor:zoom-in;">';
       });
       html += '    </div>';
       html += '  </div>';
