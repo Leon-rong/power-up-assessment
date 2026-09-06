@@ -598,207 +598,63 @@
     return 'audio/' + id + '_' + sub + '/' + id + '_part' + part + '.mp3';
   }
 
-  var LISTENING_BANKS = {
-    pu0: [
-      { title:'Part 1 · Listen and draw lines（听音连线）', part:1, questions:[
-        { type:'match', q:'Q1: Anna 对应哪个人物？', options:['穿红裙子的女孩','戴眼镜的男孩','穿绿衣服的男孩','拿气球的女孩','穿黄衣服的男孩','地上的男孩','穿粉衣服的女孩','穿蓝衣服的男孩'], ans:3, hint:'Anna 是拿气球的女孩' },
-        { type:'match', q:'Q2: Ben 对应哪个人物？', options:['穿红裙子的女孩','戴眼镜的男孩','穿绿衣服的男孩','拿气球的女孩','穿黄衣服的男孩','地上的男孩','穿粉衣服的女孩','穿蓝衣服的男孩'], ans:2, hint:'Ben 是穿绿衣服的男孩' },
-        { type:'match', q:'Q3: Tom 对应哪个人物？', options:['穿红裙子的女孩','戴眼镜的男孩','穿绿衣服的男孩','拿气球的女孩','穿黄衣服的男孩','地上的男孩','穿粉衣服的女孩','穿蓝衣服的男孩'], ans:1, hint:'Tom 是戴眼镜的男孩' },
-        { type:'match', q:'Q4: Kim 对应哪个人物？', options:['穿红裙子的女孩','戴眼镜的男孩','穿绿衣服的男孩','拿气球的女孩','穿黄衣服的男孩','地上的男孩','穿粉衣服的女孩','穿蓝衣服的男孩'], ans:0, hint:'Kim 是穿红裙子的女孩' },
-        { type:'match', q:'Q5: Nick 对应哪个人物？', options:['穿红裙子的女孩','戴眼镜的男孩','穿绿衣服的男孩','拿气球的女孩','穿黄衣服的男孩','地上的男孩','穿粉衣服的女孩','穿蓝衣服的男孩'], ans:5, hint:'Nick 是地上的男孩' },
-        { type:'match', q:'Q6: Matt 对应哪个人物？', options:['穿红裙子的女孩','戴眼镜的男孩','穿绿衣服的男孩','拿气球的女孩','穿黄衣服的男孩','地上的男孩','穿粉衣服的女孩','穿蓝衣服的男孩'], ans:6, hint:'Matt 是穿粉衣服的女孩' },
-        { type:'match', q:'Q7: Alex 对应哪个人物？', options:['穿红裙子的女孩','戴眼镜的男孩','穿绿衣服的男孩','拿气球的女孩','穿黄衣服的男孩','地上的男孩','穿粉衣服的女孩','穿蓝衣服的男孩'], ans:7, hint:'Alex 是穿蓝衣服的男孩' },
-        { type:'match', q:'Q8: 还有一个人物是谁？', options:['穿黄衣服的男孩','老师','妈妈','小狗'], ans:0, hint:'穿黄衣服的男孩' }
-      ]},
-      { title:'Part 2 · Listen and write（听音填空）', part:2, questions:[
-        { type:'fill', q:'Q1: What is her family name?（她的姓）', ans:'Jones', hint:'Jones' },
-        { type:'fill', q:'Q2: What is her English teacher’s name?（英语老师名字）', ans:'May', hint:'May' },
-        { type:'fill', q:'Q3: Where does she live? in ____ Street（住在哪条街）', ans:'Park', hint:'Park Street' },
-        { type:'fill', q:'Q4: How many sisters has she got?（几个姐妹）', ans:'2', hint:'2' },
-        { type:'fill', q:'Q5: How old is her sister?（妹妹几岁）', ans:'5', hint:'5' }
-      ]},
-      { title:'Part 3 · Listen and tick（听音打勾 A/B/C）', part:3, questions:[
-        { type:'choice3', q:'Q1: Where is Grace’s jacket?（Grace 的夹克在哪）', options:['On the bed','On the chair','In the wardrobe'], ans:2, hint:'在衣柜里' },
-        { type:'choice3', q:'Q2: What is Lucy’s favourite food?（Lucy 最爱的食物）', options:['Cake','Chocolate','Ice cream'], ans:2, hint:'冰淇淋' },
-        { type:'choice3', q:'Q3: What’s Pat’s brother doing?（Pat 的哥哥在做什么）', options:['Playing football','Playing tennis','Playing guitar'], ans:0, hint:'踢足球' },
-        { type:'choice3', q:'Q4: What animal is in the garden?（花园里有什么动物）', options:['Sheep','Goat','Dog'], ans:1, hint:'山羊' },
-        { type:'choice3', q:'Q5: Where is Hugo’s camera?（Hugo 的相机在哪）', options:['On the TV','On the radio','On the desk'], ans:2, hint:'在书桌上' }
-      ]},
-      { title:'Part 4 · Listen and colour（听音涂色）', part:4, questions:[
-        { type:'fill', q:'Q1: Color the sun ____（把太阳涂成）', ans:'yellow', hint:'黄色' },
-        { type:'fill', q:'Q2: Color the plane ____（把飞机涂成）', ans:'green', hint:'绿色' },
-        { type:'fill', q:'Q3: Color the bus ____（把公交车涂成）', ans:'purple', hint:'紫色' },
-        { type:'fill', q:'Q4: Color the jacket ____（把夹克涂成）', ans:'orange', hint:'橙色' },
-        { type:'fill', q:'Q5: Color the woman’s bag ____（把女士的包涂成）', ans:'blue', hint:'蓝色' },
-        { type:'fill', q:'Q6: Color the box ____（把盒子涂成）', ans:'yellow', hint:'黄色' }
-      ]},
-      { title:'Part 5 · Listen and say yes/no（听音判断）', part:5, questions:[
-        { type:'yesno', q:'Q1: Is this a cat?（这是猫吗）', options:['Yes','No'], ans:1 },
-        { type:'yesno', q:'Q2: Is the boy flying a kite?（男孩在放风筝吗）', options:['Yes','No'], ans:0 },
-        { type:'yesno', q:'Q3: Are they swimming?（他们在游泳吗）', options:['Yes','No'], ans:1 },
-        { type:'yesno', q:'Q4: Is it raining?（在下雨吗）', options:['Yes','No'], ans:0 },
-        { type:'yesno', q:'Q5: The girl has a red ball?（女孩有红球吗）', options:['Yes','No'], ans:1 },
-        { type:'yesno', q:'Q6: The boy is playing football?（男孩在踢足球吗）', options:['Yes','No'], ans:0 },
-        { type:'yesno', q:'Q7: They are at school?（他们在学校吗）', options:['Yes','No'], ans:1 },
-        { type:'yesno', q:'Q8: It is sunny today?（今天晴天吗）', options:['Yes','No'], ans:0 }
-      ]}
-    ],
-    pu1: [
-      { title:'Part 1 · Listen and draw lines（听音连线）', part:1, questions:[
-        { type:'match', q:'Q1: Alex 对应哪个人物？', options:['戴帽子的男孩','拿足球的女孩','穿蓝衣服的男孩','扎辫子的女孩','戴眼镜的女孩','拿书的男孩'], ans:0, hint:'（按 YLE 题型重建，对照答案页）' },
-        { type:'match', q:'Q2: May 对应哪个人物？', options:['戴帽子的男孩','拿足球的女孩','穿蓝衣服的男孩','扎辫子的女孩','戴眼镜的女孩','拿书的男孩'], ans:3, hint:'（重建）' },
-        { type:'match', q:'Q3: Pat 对应哪个人物？', options:['戴帽子的男孩','拿足球的女孩','穿蓝衣服的男孩','扎辫子的女孩','戴眼镜的女孩','拿书的男孩'], ans:2, hint:'（重建）' },
-        { type:'match', q:'Q4: Sue 对应哪个人物？', options:['戴帽子的男孩','拿足球的女孩','穿蓝衣服的男孩','扎辫子的女孩','戴眼镜的女孩','拿书的男孩'], ans:5, hint:'（重建）' },
-        { type:'match', q:'Q5: Tom 对应哪个人物？', options:['戴帽子的男孩','拿足球的女孩','穿蓝衣服的男孩','扎辫子的女孩','戴眼镜的女孩','拿书的男孩'], ans:1, hint:'（重建）' },
-        { type:'match', q:'Q6: Jill 对应哪个人物？', options:['戴帽子的男孩','拿足球的女孩','穿蓝衣服的男孩','扎辫子的女孩','戴眼镜的女孩','拿书的男孩'], ans:4, hint:'（重建）' }
-      ]},
-      { title:'Part 2 · Listen and write（听音填空）', part:2, questions:[
-        { type:'fill', q:'Q1: What is the boy’s name?（男孩名字）', ans:'Tom', hint:'Tom' },
-        { type:'fill', q:'Q2: How old is he?（他几岁）', ans:'7', hint:'7' },
-        { type:'fill', q:'Q3: What colour is his bag?（书包颜色）', ans:'red', hint:'红色' },
-        { type:'fill', q:'Q4: How many dogs has he got?（几只狗）', ans:'3', hint:'3' },
-        { type:'fill', q:'Q5: What is his favourite food?（最爱食物）', ans:'pizza', hint:'pizza' }
-      ]},
-      { title:'Part 3 · Listen and tick（听音打勾 A/B/C）', part:3, questions:[
-        { type:'choice3', q:'Q1: What is the boy doing?（男孩在做什么）', options:['Reading','Drawing','Singing'], ans:1, hint:'画画' },
-        { type:'choice3', q:'Q2: Where is the cat?（猫在哪）', options:['Under the table','On the chair','In the box'], ans:2, hint:'在盒子里' },
-        { type:'choice3', q:'Q3: What does the girl like?（女孩喜欢什么）', options:['Apples','Bananas','Oranges'], ans:0, hint:'苹果' },
-        { type:'choice3', q:'Q4: What is the weather like?（天气如何）', options:['Sunny','Rainy','Snowy'], ans:0, hint:'晴天' },
-        { type:'choice3', q:'Q5: What is the man’s job?（男的的职业）', options:['Teacher','Doctor','Farmer'], ans:1, hint:'医生' }
-      ]},
-      { title:'Part 4 · Listen and colour（听音涂色）', part:4, questions:[
-        { type:'fill', q:'Q1: Color the fish ____（把鱼涂成）', ans:'blue', hint:'蓝色' },
-        { type:'fill', q:'Q2: Color the flower ____（把花涂成）', ans:'pink', hint:'粉色' },
-        { type:'fill', q:'Q3: Color the bird ____（把鸟涂成）', ans:'green', hint:'绿色' },
-        { type:'fill', q:'Q4: Color the star ____（把星星涂成）', ans:'yellow', hint:'黄色' },
-        { type:'fill', q:'Q5: Color the tree ____（把树涂成）', ans:'brown', hint:'棕色' }
-      ]},
-      { title:'Part 5 · Listen and say yes/no（听音判断）', part:5, questions:[
-        { type:'yesno', q:'Q1: The boy is eating an apple?（男孩在吃苹果吗）', options:['Yes','No'], ans:0 },
-        { type:'yesno', q:'Q2: The girl is in the garden?（女孩在花园吗）', options:['Yes','No'], ans:1 },
-        { type:'yesno', q:'Q3: They are playing football?（他们在踢足球吗）', options:['Yes','No'], ans:0 },
-        { type:'yesno', q:'Q4: It is cold today?（今天冷吗）', options:['Yes','No'], ans:1 },
-        { type:'yesno', q:'Q5: The dog is sleeping?（狗在睡觉吗）', options:['Yes','No'], ans:0 },
-        { type:'yesno', q:'Q6: The book is on the desk?（书在桌上吗）', options:['Yes','No'], ans:1 }
-      ]}
-    ],
-    pu2: [
-      { title:'Part 1 · Where is …?（听音选位置 A–H）', part:1, questions:[
-        { type:'choice8', q:'Q1: Where is the café?（咖啡馆在哪）', options:['A','B','C','D','E','F','G','H'], ans:2, hint:'（按 YLE 题型重建）' },
-        { type:'choice8', q:'Q2: Where is the park?（公园在哪）', options:['A','B','C','D','E','F','G','H'], ans:7, hint:'（重建）' },
-        { type:'choice8', q:'Q3: Where is the school?（学校在哪）', options:['A','B','C','D','E','F','G','H'], ans:5, hint:'（重建）' },
-        { type:'choice8', q:'Q4: Where is the station?（车站在哪）', options:['A','B','C','D','E','F','G','H'], ans:3, hint:'（重建）' }
-      ]},
-      { title:'Part 2 · Listen and write（听音填空）', part:2, questions:[
-        { type:'fill', q:'Q1: We go by ____（交通工具）', ans:'car', hint:'car' },
-        { type:'fill', q:'Q2: in the ____（时间段）', ans:'evenings', hint:'evenings' },
-        { type:'fill', q:'Q3: my ____（家庭成员）', ans:'son', hint:'son' },
-        { type:'fill', q:'Q4: have a ____（动作）', ans:'shower', hint:'shower' },
-        { type:'fill', q:'Q5: number ____（数字）', ans:'38', hint:'38' }
-      ]},
-      { title:'Part 3 · Listen and tick（听音打勾 A/B/C）', part:3, questions:[
-        { type:'choice3', q:'Q1: What does the boy want?（男孩想要什么）', options:['A book','A ball','A bike'], ans:0, hint:'书' },
-        { type:'choice3', q:'Q2: Where do they go?（他们去哪）', options:['To the park','To school','To the zoo'], ans:2, hint:'动物园' },
-        { type:'choice3', q:'Q3: What is the weather?（天气）', options:['Windy','Cloudy','Sunny'], ans:1, hint:'多云' },
-        { type:'choice3', q:'Q4: What is the girl’s pet?（女孩的宠物）', options:['A cat','A dog','A rabbit'], ans:2, hint:'兔子' },
-        { type:'choice3', q:'Q5: What time is it?（几点）', options:['Three','Four','Five'], ans:1, hint:'四点' }
-      ]},
-      { title:'Part 4 · Listen and colour（听音涂色）', part:4, questions:[
-        { type:'fill', q:'Q1: Color the house ____（把房子涂成）', ans:'red', hint:'红色' },
-        { type:'fill', q:'Q2: Color the door ____（把门涂成）', ans:'blue', hint:'蓝色' },
-        { type:'fill', q:'Q3: Color the tree ____（把树涂成）', ans:'green', hint:'绿色' },
-        { type:'fill', q:'Q4: Color the sun ____（把太阳涂成）', ans:'yellow', hint:'黄色' },
-        { type:'fill', q:'Q5: Color the car ____（把车涂成）', ans:'black', hint:'黑色' }
-      ]},
-      { title:'Part 5 · Listen and say yes/no（听音判断）', part:5, questions:[
-        { type:'yesno', q:'Q1: The children are happy?（孩子们开心吗）', options:['Yes','No'], ans:0 },
-        { type:'yesno', q:'Q2: The boy can swim?（男孩会游泳吗）', options:['Yes','No'], ans:0 },
-        { type:'yesno', q:'Q3: They are at home?（他们在家吗）', options:['Yes','No'], ans:1 },
-        { type:'yesno', q:'Q4: The girl likes music?（女孩喜欢音乐吗）', options:['Yes','No'], ans:0 },
-        { type:'yesno', q:'Q5: It is Monday today?（今天周一吗）', options:['Yes','No'], ans:1 }
-      ]}
-    ],
-    pu3: [
-      { title:'Part 1 · Which object?（听音选物 A–H）', part:1, questions:[
-        { type:'choice8', q:'Q1: roller skates?（滚轴溜冰鞋）', options:['A','B','C','D','E','F','G','H'], ans:5, hint:'（按 YLE 题型重建）' },
-        { type:'choice8', q:'Q2: comic?（漫画）', options:['A','B','C','D','E','F','G','H'], ans:1, hint:'（重建）' },
-        { type:'choice8', q:'Q3: helmet?（头盔）', options:['A','B','C','D','E','F','G','H'], ans:0, hint:'（重建）' },
-        { type:'choice8', q:'Q4: laptop?（笔记本电脑）', options:['A','B','C','D','E','F','G','H'], ans:3, hint:'（重建）' }
-      ]},
-      { title:'Part 2 · Listen and write（听音填空）', part:2, questions:[
-        { type:'fill', q:'Q1: Her name is ____（名字）', ans:'Lucy', hint:'Lucy' },
-        { type:'fill', q:'Q2: She is ____ years old（年龄）', ans:'9', hint:'9' },
-        { type:'fill', q:'Q3: favourite colour ____（颜色）', ans:'purple', hint:'紫色' },
-        { type:'fill', q:'Q4: has a ____（宠物）', ans:'rabbit', hint:'兔子' },
-        { type:'fill', q:'Q5: on ____ Street（街道）', ans:'Hill', hint:'Hill' }
-      ]},
-      { title:'Part 3 · Listen and tick（听音打勾 A/B/C）', part:3, questions:[
-        { type:'choice3', q:'Q1: What did the boy do?（男孩做了什么）', options:['Went swimming','Played tennis','Rode a horse'], ans:0, hint:'游泳' },
-        { type:'choice3', q:'Q2: What did she buy?（她买了什么）', options:['A dress','A book','A cake'], ans:2, hint:'蛋糕' },
-        { type:'choice3', q:'Q3: Where did they go?（他们去哪）', options:['The beach','The farm','The museum'], ans:1, hint:'农场' },
-        { type:'choice3', q:'Q4: What is the matter?（怎么了）', options:['He is ill','He is tired','He is hungry'], ans:0, hint:'生病' },
-        { type:'choice3', q:'Q5: What will they do?（他们要做什么）', options:['Watch TV','Do homework','Play chess'], ans:2, hint:'下棋' }
-      ]},
-      { title:'Part 4 · Listen and colour（听音涂色）', part:4, questions:[
-        { type:'fill', q:'Q1: Color the kite ____（把风筝涂成）', ans:'orange', hint:'橙色' },
-        { type:'fill', q:'Q2: Color the boat ____（把船涂成）', ans:'white', hint:'白色' },
-        { type:'fill', q:'Q3: Color the mountain ____（把山涂成）', ans:'grey', hint:'灰色' },
-        { type:'fill', q:'Q4: Color the lake ____（把湖涂成）', ans:'blue', hint:'蓝色' },
-        { type:'fill', q:'Q5: Color the cloud ____（把云涂成）', ans:'pink', hint:'粉色' }
-      ]},
-      { title:'Part 5 · Listen and say yes/no（听音判断）', part:5, questions:[
-        { type:'yesno', q:'Q1: The film was funny?（电影好笑吗）', options:['Yes','No'], ans:0 },
-        { type:'yesno', q:'Q2: They won the game?（他们赢了比赛吗）', options:['Yes','No'], ans:0 },
-        { type:'yesno', q:'Q3: She likes the present?（她喜欢礼物吗）', options:['Yes','No'], ans:1 },
-        { type:'yesno', q:'Q4: The museum is open?（博物馆开门吗）', options:['Yes','No'], ans:1 },
-        { type:'yesno', q:'Q5: He finished his homework?（他完成作业了吗）', options:['Yes','No'], ans:0 }
-      ]}
-    ],
-    pu4: [
-      { title:'Part 1 · Who …?（听音选人）', part:1, questions:[
-        { type:'choice5', q:'Q1: Who is wearing red?（谁穿红色）', options:['Paul','Sarah','Sally','Emma','Richard'], ans:0, hint:'（按 YLE 题型重建）' },
-        { type:'choice5', q:'Q2: Who is on a high chair?（谁在高脚椅上）', options:['Paul','Sarah','Sally','Emma','Richard'], ans:1, hint:'（重建）' },
-        { type:'choice5', q:'Q3: Who has a dog?（谁有狗）', options:['Paul','Sarah','Sally','Emma','Richard'], ans:2, hint:'（重建）' },
-        { type:'choice5', q:'Q4: Who is reading?（谁在读书）', options:['Paul','Sarah','Sally','Emma','Richard'], ans:3, hint:'（重建）' },
-        { type:'choice5', q:'Q5: Who is smiling?（谁在微笑）', options:['Paul','Sarah','Sally','Emma','Richard'], ans:4, hint:'（重建）' }
-      ]},
-      { title:'Part 2 · Listen and write（听音填空）', part:2, questions:[
-        { type:'fill', q:'Q1: The party is on ____（星期）', ans:'Saturday', hint:'Saturday' },
-        { type:'fill', q:'Q2: at ____ o’clock（点钟）', ans:'three', hint:'3' },
-        { type:'fill', q:'Q3: bring a ____（带什么）', ans:'cake', hint:'蛋糕' },
-        { type:'fill', q:'Q4: wear ____（穿什么颜色）', ans:'green', hint:'绿色' },
-        { type:'fill', q:'Q5: number ____（门牌号）', ans:'15', hint:'15' }
-      ]},
-      { title:'Part 3 · Listen and tick（听音打勾 A/B/C）', part:3, questions:[
-        { type:'choice3', q:'Q1: What did they eat?（他们吃了什么）', options:['Pizza','Salad','Soup'], ans:0, hint:'披萨' },
-        { type:'choice3', q:'Q2: How did they travel?（怎么去）', options:['By bus','By train','By plane'], ans:1, hint:'火车' },
-        { type:'choice3', q:'Q3: What was the weather?（天气）', options:['Hot','Cold','Windy'], ans:2, hint:'有风' },
-        { type:'choice3', q:'Q4: What did she see?（她看见了什么）', options:['A whale','A dolphin','A shark'], ans:1, hint:'海豚' },
-        { type:'choice3', q:'Q5: What will he do?（他要做什么）', options:['Write a letter','Send an email','Make a call'], ans:2, hint:'打电话' }
-      ]},
-      { title:'Part 4 · Listen and colour（听音涂色）', part:4, questions:[
-        { type:'fill', q:'Q1: Color the balloon ____（把气球涂成）', ans:'red', hint:'红色' },
-        { type:'fill', q:'Q2: Color the flower ____（把花涂成）', ans:'yellow', hint:'黄色' },
-        { type:'fill', q:'Q3: Color the bird ____（把鸟涂成）', ans:'blue', hint:'蓝色' },
-        { type:'fill', q:'Q4: Color the grass ____（把草涂成）', ans:'green', hint:'绿色' },
-        { type:'fill', q:'Q5: Color the sky ____（把天空涂成）', ans:'purple', hint:'紫色' }
-      ]},
-      { title:'Part 5 · Listen and say yes/no（听音判断）', part:5, questions:[
-        { type:'yesno', q:'Q1: The story was exciting?（故事精彩吗）', options:['Yes','No'], ans:0 },
-        { type:'yesno', q:'Q2: They missed the bus?（他们错过公交了吗）', options:['Yes','No'], ans:1 },
-        { type:'yesno', q:'Q3: She passed the exam?（她通过考试了吗）', options:['Yes','No'], ans:0 },
-        { type:'yesno', q:'Q4: The museum was closed?（博物馆关门了吗）', options:['Yes','No'], ans:1 },
-        { type:'yesno', q:'Q5: He enjoyed the trip?（他享受旅行吗）', options:['Yes','No'], ans:0 }
-      ]}
-    ]
-  };
+  // 听力题库：直接从官方原卷数据（PAGE_PART / PAGE_QUESTIONS / PAGE_ANSWERS）构建，
+  // 保证「播放的音频 = 显示的试卷图 = 所答的题」三者严格一致（不再使用任何编造题）。
+  function bookSub(id) {
+    return (id === 'pu0' || id === 'pu1') ? 'starters' : (id === 'pu2' || id === 'pu3') ? 'movers' : 'flyers';
+  }
 
+  function listenPageImg(id, page) {
+    var sub = bookSub(id);
+    return 'images_webp/' + id + '_' + sub + '/' + id + '_' + sub + '_' + String(page).padStart(3, '0') + '.webp';
+  }
+
+  // 归一化答案：忽略大小写/空格/连字符（官方拼写答案形如 J-O-N-E-S、H-A-L-L）
+  function normAns(s) {
+    return String(s == null ? '' : s).toLowerCase().replace(/[\s\-_.,'!]/g, '');
+  }
+
+  function buildListeningBank(book) {
+    var part = (typeof PAGE_PART !== 'undefined' && PAGE_PART[book]) || {};
+    var qs = (typeof PAGE_QUESTIONS !== 'undefined' && PAGE_QUESTIONS[book]) || {};
+    var ans = (typeof PAGE_ANSWERS !== 'undefined' && PAGE_ANSWERS[book]) || {};
+    var groups = {};   // partNo -> { title, pages:[], questions:[] }
+    Object.keys(part).forEach(function (pg) {
+      var label = part[pg] || '';
+      if (label.indexOf('\u542c\u529b') !== 0) return;            // 仅取「听力 …」页
+      var m = label.match(/Part\s*(\d+)/i);
+      if (!m) return;
+      var no = parseInt(m[1], 10);
+      var qlist = qs[pg] || [], alist = ans[pg] || [];
+      if (!qlist.length) return;
+      if (!groups[no]) groups[no] = { part: no, title: '', pages: [], questions: [] };
+      var g = groups[no];
+      g.pages.push(parseInt(pg, 10));
+      if (!g.title) g.title = label.replace(/^\u542c\u529b\s*/, '').replace(/（[^）]*）/, '').trim();
+      qlist.forEach(function (q, i) {
+        var a = alist[i] || {};
+        var raw = (typeof a === 'string') ? a : (a.ans || '');
+        g.questions.push({
+          type: (q.type === 'choice') ? 'choice' : 'fill',
+          q: q.q,
+          options: q.options || ['A', 'B', 'C'],
+          ans: raw,
+          page: parseInt(pg, 10)
+        });
+      });
+    });
+    var parts = Object.keys(groups).map(function (k) { return groups[k]; })
+      .sort(function (a, b) { return a.part - b.part; });
+    parts.forEach(function (g) { g.pages.sort(function (a, b) { return a - b; }); });
+    return parts.length ? parts : null;
+  }
   function plStartListening(book) {
-    if (!book || !LISTENING_BANKS[book]) book = 'pu0';
+    var bank = buildListeningBank(book) || buildListeningBank('pu0');
+    if (!book || !bank) book = 'pu0';
     P.listen = {
       book: book,
       bookName: { pu0:'Power Up 0 (Pre-A1 Starters)', pu1:'Power Up 1 (Pre-A1→A1 Starters)', pu2:'Power Up 2 (A1 Movers)', pu3:'Power Up 3 (A1+ Movers)', pu4:'Power Up 4 (A2 Flyers)' }[book],
-      parts: LISTENING_BANKS[book],
+      parts: bank,
       partIdx: 0, qIdx: 0, correct: 0, total: 0, answers: []
     };
     hide('plLang'); hide('plReport'); show('plListen');
@@ -824,11 +680,24 @@
     var html = '';
     html += '<div style="text-align:center; margin-bottom:12px;">';
     html += '  <div style="font-size:13px; color:var(--muted);">听力理解 · ' + L.bookName + ' · Part ' + (L.partIdx + 1) + '/' + L.parts.length + '</div>';
-    html += '  <h3 style="color:var(--gold); margin:6px 0;">' + part.title + '</h3>';
+    html += '  <h3 style="color:var(--gold); margin:6px 0;">Part ' + part.part + ' · ' + (part.title || '') + '</h3>';
     if (file) {
       html += '  <button class="ctrl-btn" id="plPlayBtn" onclick="plPlayPart()">🎧 播放本 Part 听力（原版录音）</button>';
     } else {
-      html += '  <p style="color:var(--muted); font-size:12px;">（本册仅提供 Part1-4 原声，本 Part 请对照答案页自测）</p>';
+      html += '  <p style="color:var(--muted); font-size:12px;">（本 Part 暂无配套原声，请对照官方答案页自测）</p>';
+    }
+    // 官方原卷试题页（看图/听音作答，点击图片可放大）
+    if (part.pages && part.pages.length) {
+      html += '  <div style="margin-top:14px;">';
+      html += '    <div style="font-size:12px; color:var(--muted); margin-bottom:6px;">📄 官方原卷试题页（第 ' + part.pages.join('、') + ' 页）· 点击图片可放大</div>';
+      html += '    <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">';
+      part.pages.forEach(function (pg) {
+        var src = listenPageImg(L.book, pg);
+        html += '      <img src="' + src + '" alt="原卷第 ' + pg + ' 页" onclick="window.open(this.src,\'_blank\')" ';
+        html += 'style="max-width:100%; width:' + (part.pages.length > 1 ? '46%' : '88%') + '; border:1px solid var(--border); border-radius:10px; background:#fff; cursor:zoom-in;">';
+      });
+      html += '    </div>';
+      html += '  </div>';
     }
     html += '</div>';
     html += '<div id="plListenQ" style="margin-top:14px;"></div>';
@@ -856,16 +725,18 @@
     var L = P.listen;
     var part = L.parts[L.partIdx];
     var labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-    var html = '<p style="color:var(--muted); font-size:12px; margin:4px 0 12px;">本 Part 共 ' + part.questions.length + ' 题，全部作答后点下方按钮统一提交。</p>';
+    var html = '<p style="color:var(--muted); font-size:12px; margin:4px 0 12px;">本 Part 共 ' + part.questions.length + ' 题（对照上方官方原卷页 + 原版录音作答），全部作答后点下方按钮统一提交。</p>';
     part.questions.forEach(function (q, qi) {
       html += '<div class="pl-q" data-q="' + qi + '" style="background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:14px; margin-bottom:14px; text-align:left;">';
       html += '  <div style="font-size:15px; color:var(--text); margin-bottom:10px;"><span style="color:var(--gold); font-weight:700;">Q' + (qi + 1) + '.</span> ' + q.q + '</div>';
       if (q.type === 'fill') {
-        html += '  <input type="text" id="plFill_' + qi + '" placeholder="' + (q.hint || '请输入答案') + '" style="width:100%; padding:12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:15px;">';
+        var ph = /-/.test(String(q.ans)) ? '按听到的字母拼写（如 A-B-C）' : '请输入答案（英文/数字）';
+        html += '  <input type="text" id="plFill_' + qi + '" autocomplete="off" placeholder="' + ph + '" style="width:100%; padding:12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:15px;">';
       } else {
-        html += '  <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">';
-        q.options.forEach(function (opt, i) {
-          html += '    <button type="button" class="pl-opt ctrl-btn" data-q="' + qi + '" onclick="plPickChoice(' + qi + ',' + i + ')">' + labels[i] + '. ' + opt + '</button>';
+        var opts = (q.options && q.options.length) ? q.options : ['A', 'B', 'C'];
+        html += '  <div style="display:grid; grid-template-columns:repeat(' + Math.min(opts.length, 3) + ',1fr); gap:10px;">';
+        opts.forEach(function (opt, i) {
+          html += '    <button type="button" class="pl-opt ctrl-btn" data-q="' + qi + '" onclick="plPickChoice(' + qi + ',' + i + ')">' + opt + '</button>';
         });
         html += '  </div>';
       }
@@ -893,20 +764,23 @@
       var isCorrect = false, given = '(未作答)';
       if (q.type === 'fill') {
         var el = document.getElementById('plFill_' + qi);
-        given = el ? el.value.trim().toLowerCase() : '';
-        isCorrect = (given === String(q.ans).toLowerCase());
+        given = el ? el.value.trim() : '';
+        isCorrect = (given !== '' && normAns(given) === normAns(q.ans));   // 忽略大小写/连字符（J-O-N-E-S ≈ jones）
       } else {
         var sel = P.listen.picks[qi];
-        given = (sel === undefined) ? '(未作答)' : String.fromCharCode(65 + sel);
-        isCorrect = (sel === q.ans);
-        var opts = document.querySelectorAll('[data-q="' + qi + '"] .pl-opt');
-        opts.forEach(function (b, bi) {
-          if (bi === q.ans) { b.style.borderColor = 'var(--green)'; b.style.background = 'rgba(81,207,102,.18)'; }
+        var opts = (q.options && q.options.length) ? q.options : ['A', 'B', 'C'];
+        var rightIdx = opts.indexOf(String(q.ans).trim().toUpperCase());
+        if (rightIdx < 0) rightIdx = 'ABC'.indexOf(String(q.ans).trim().toUpperCase());
+        given = (sel === undefined) ? '(未作答)' : opts[sel];
+        isCorrect = (sel === rightIdx);
+        var btns = document.querySelectorAll('[data-q="' + qi + '"] .pl-opt');
+        btns.forEach(function (b, bi) {
+          if (bi === rightIdx) { b.style.borderColor = 'var(--green)'; b.style.background = 'rgba(81,207,102,.18)'; }
           else if (bi === sel) { b.style.borderColor = 'var(--red)'; b.style.background = 'rgba(255,90,90,.18)'; }
         });
       }
       if (isCorrect) L.correct++; L.total++;
-      L.answers.push({ correct: isCorrect, q: q.q, type: q.type, given: given, ans: (q.type === 'fill' ? q.ans : String.fromCharCode(65 + q.ans)) });
+      L.answers.push({ correct: isCorrect, q: q.q, type: q.type, given: given, ans: String(q.ans) });
     });
     L.submitted = true;
     showListenPartFeedback();
@@ -953,7 +827,7 @@
 
   // ===================== 统一报告 =====================
   function buildReport() {
-    var langAcc = P.lang.total ? Math.round(P.lang.correct / P.lang.total * 100) : 0;
+    var langAcc = (P.lang && P.lang.total) ? Math.round(P.lang.correct / P.lang.total * 100) : 0;
     var readAcc = (P.read && P.read.total) ? Math.round(P.read.correct / P.read.total * 100) : 0;
     var listenAcc = P.listenAccuracy;
     // 综合权重：词汇 30% + 阅读 35% + 听力 35%（阅读/听力为理解核心，与官方 EOL 四项技能配比一致）；下方另按技能级别加权推导推荐起始级别
@@ -978,7 +852,9 @@
     // ===== 官方 CEFR 分级定级：词汇 / 阅读 / 听力 → 0-4 级别 → Power Up 册 =====
     var CEFR_LV = ['Pre-A1 (Starters)', 'Pre-A1→A1', 'A1 (Movers)', 'A1+ (Movers)', 'A2 (Flyers)'];
     // 三项技能各自级别（0-4）
-    var vLevel = P.langLevel;                                                              // 词汇/语言应用：自适应直接定级
+    // 词汇/语言应用：自适应直接定级（P.langLevel 可达 0-6，但本报告量表仅定义 0-4，
+    // 超出部分按最高档 A2/Flyers 处理，避免出现 COMMENT.vocab[5/6] 未定义而崩溃）
+    var vLevel = Math.max(0, Math.min(4, P.langLevel || 0));
     var rLevel = (P.read && P.read.level != null) ? P.read.level : (P.read ? P.read.peakLevel : 0); // 阅读：最终稳定级别（非峰值）
     function listenLevelFromAcc(a) { return a >= 90 ? 4 : a >= 80 ? 3 : a >= 65 ? 2 : a >= 50 ? 1 : 0; }
     var lLevel = listenLevelFromAcc(listenAcc);                                           // 听力：由 YLE 分级阈值映射（官方 shields 口径）
@@ -1117,14 +993,14 @@
 
     // ===== 薄弱点深挖 =====
     var weak = [];
-    P.lang.questions.forEach(function (q) { if (!q.correct) weak.push({ kind:'词汇', word: q.word, level: q.level }); });
+    ((P.lang && P.lang.questions) ? P.lang.questions : []).forEach(function (q) { if (!q.correct) weak.push({ kind:'词汇', word: q.word, level: q.level }); });
     if (P.read) P.read.answers.forEach(function (a) {
       if (!a.correct) {
         var q = a.q.replace(/^Q\d+:\s*/, '').replace(/（[^）]*）/g, '').trim();
         weak.push({ kind: a.type === 'fill' ? '阅读完形' : '阅读理解', q: q.slice(0, 30) + (q.length > 30 ? '…' : '') });
       }
     });
-    P.listen.answers.forEach(function (a) {
+    (P.listen.answers || []).forEach(function (a) {
       if (!a.correct) weak.push({ kind: '听力', q: a.q.replace(/^Q\d+:\s*/, '').replace(/（[^）]*）/g, '').slice(0, 30) + '…' });
     });
 
@@ -1150,7 +1026,7 @@
     html += '<table class="rpt"><thead><tr><th>测评维度</th><th>说明</th><th>准确率</th><th>评级</th></tr></thead><tbody>';
     function rptRowP(label, info, acc){ var gg = rptGrade(acc), cl = rptAccCls(acc); return '<tr><td>' + label + '</td><td style="color:var(--muted);font-size:12px;">' + info + '</td><td class="' + cl + '">' + acc + '%</td><td class="' + cl + '">' + gg.L + '</td></tr>'; }
     var readInfo = P.read ? ('Level ' + P.read.startLevel + ' → ' + P.read.peakLevel + ' ｜ ' + P.read.correct + '/' + P.read.total + ' 对') : '-';
-    html += rptRowP('📖 语言应用', '最终 Level ' + P.langLevel + ' ｜ ' + P.lang.correct + '/' + P.lang.total + ' 对', langAcc);
+    html += rptRowP('📖 语言应用', (P.lang ? ('最终 Level ' + P.langLevel + ' ｜ ' + P.lang.correct + '/' + P.lang.total + ' 对') : '未完成'), langAcc);
     html += rptRowP('🔍 阅读理解', readInfo, readAcc);
     html += rptRowP('🎧 听力理解', P.listen.bookName, listenAcc);
     html += '<tr style="background:rgba(212,165,116,.07);"><td><b>综合</b></td><td style="color:var(--muted);font-size:12px;">加权总分</td><td class="rpt-good"><b>' + overall + '%</b></td><td class="' + rptAccCls(overall) + '"><b>' + grade.letter + '</b></td></tr>';
